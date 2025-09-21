@@ -1,0 +1,43 @@
+B1.
+mkdir C:\Cloudflared\bin
+https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/downloads/
+move to exe to C:\Cloudflared\bin
+cloudflared.exe service install
+Start-Service cloudflared
+mkdir C:\Windows\System32\config\systemprofile\.cloudflared
+cloudflared.exe login
+copy C:\Users\%USERNAME%\.cloudflared\cert.pem C:\Windows\System32\config\systemprofile\.cloudflared\cert.pem
+
+cloudflared.exe tunnel create d-hotel.choncinema.com
+
+tunnel: 2f9d4591-badd-43d7-b261-3fc3c37b36d6
+credentials-file: C:\Windows\System32\config\systemprofile\.cloudflared\2f9d4591-badd-43d7-b261-3fc3c37b36d6.json
+# Uncomment the following two lines if you are using self-signed certificates in your origin server
+# originRequest:
+#   noTLSVerify: true
+
+ingress:
+  - hostname: d-hotel.choncinema.com
+    service: http://localhost:8000
+  - service: http_status:404
+logfile:  C:\Cloudflared\cloudflared.log
+
+
+cloudflared tunnel route dns d-hotel d-hotel.choncinema.com
+
+copy C:\Users\%USERNAME%\.cloudflared\<Tunnel-ID>.json C:\Windows\System32\config\systemprofile\.cloudflared\<Tunnel-ID>.json
+
+cloudflared.exe tunnel ingress validate
+
+
+HKEY
+C:\Cloudflared\bin\cloudflared.exe --config=C:\Users\%USERNAME%\.cloudflared\config.yml tunnel run
+sc start cloudflared
+
+sc stop cloudflared
+sc start cloudflared
+B2.
+
+
+
+B3.
